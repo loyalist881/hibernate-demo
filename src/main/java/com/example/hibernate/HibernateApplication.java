@@ -31,7 +31,7 @@ public class HibernateApplication implements CommandLineRunner {
                         .city("Novosibirsk")
                         .contact(Contact.builder()
                                 .email("pavel@mail.ru")
-                                .phone_number("111-111")
+                                .phoneNumber("111-111")
                                 .build())
                         .build(),
                 Person.builder()
@@ -41,7 +41,7 @@ public class HibernateApplication implements CommandLineRunner {
                         .city("Moscow")
                         .contact(Contact.builder()
                                 .email("anna@mail.ru")
-                                .phone_number("222-222")
+                                .phoneNumber("222-222")
                                 .build())
                         .build(),
                 Person.builder()
@@ -51,7 +51,7 @@ public class HibernateApplication implements CommandLineRunner {
                         .city("Moscow")
                         .contact(Contact.builder()
                                 .email("ivan@mail.ru")
-                                .phone_number("333-333")
+                                .phoneNumber("333-333")
                                 .build())
                         .build()
         );

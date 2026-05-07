@@ -1,17 +1,18 @@
 package com.example.hibernate.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Embeddable
 public class Contact {
-    private String phone_number;
+    @Column(name = "phone_number")
+    private String phoneNumber;
+    @Column(name = "email")
     private String email;
 }
