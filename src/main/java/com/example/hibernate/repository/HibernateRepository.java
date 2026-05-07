@@ -5,7 +5,6 @@ import jakarta.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class HibernateRepository {
@@ -16,11 +15,9 @@ public class HibernateRepository {
     }
 
     public List<Person> getPersonsByCity(String city) {
-        List<Person> allPerson = entityManager.createQuery("SELECT p FROM Person p", Person.class)
+        return entityManager.createQuery(
+                        "SELECT p FROM Person p WHERE lower(p.city) = lower(:city)", Person.class)
+                .setParameter("city", city)
                 .getResultList();
-
-        return allPerson.stream()
-                .filter(person -> person.getCity().equalsIgnoreCase(city))
-                .collect(Collectors.toList());
     }
 }
