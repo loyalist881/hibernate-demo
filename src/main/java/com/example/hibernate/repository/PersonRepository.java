@@ -11,6 +11,9 @@ import java.util.Optional;
 
 @Repository
 public interface PersonRepository extends JpaRepository<Person, Long> {
+    @Query("SELECT p FROM Person p WHERE p.contact.email = :email")
+    Optional<Person> findByContactEmail(String email);
+
     @Query("SELECT p FROM Person p WHERE p.city = :city")
     List<Person> findByCity(@Param("city") String city);
 

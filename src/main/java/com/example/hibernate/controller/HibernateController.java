@@ -1,5 +1,6 @@
 package com.example.hibernate.controller;
 
+import com.example.hibernate.dto.PersonResponse;
 import com.example.hibernate.entity.Person;
 import com.example.hibernate.service.HibernateService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class HibernateController {
@@ -17,19 +19,33 @@ public class HibernateController {
         this.hibernateService = hibernateService;
     }
 
+    private PersonResponse mapToResponse(Person person) {
+        PersonResponse personResponse = new PersonResponse();
+        personResponse.setName(person.getName());
+        personResponse.setSurname(person.getSurname());
+        personResponse.setAge(person.getAge());
+        personResponse.setCity(person.getCity());
+        return personResponse;
+    }
+
     @GetMapping("/persons/by-city")
-    public List<Person> findByCity(@RequestParam String city) {
-        return hibernateService.findByCity(city);
+    public List<PersonResponse> findByCity(@RequestParam String city) {
+        return hibernateService.findByCity(city).stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/persons/by-age")
-    public List<Person> findByAgeLessThanOrderByAgeAsc(@RequestParam int age) {
-        return hibernateService.findByAgeLessThanOrderByAgeAsc(age);
+    public List<PersonResponse> findByAgeLessThanOrderByAgeAsc(@RequestParam int age) {
+        return hibernateService.findByAgeLessThanOrderByAgeAsc(age).stream()
+                .map(this::mapToResponse)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/persons/by-name-surname")
-    public Optional<Person> findByNameAndSurname(@RequestParam String name, @RequestParam String surname) {
-        return hibernateService.findByNameAndSurname(name, surname);
+    public Optional<PersonResponse> findByNameAndSurname(@RequestParam String name, @RequestParam String surname) {
+        return hibernateService.findByNameAndSurname(name, surname)
+                .map(this::mapToResponse);
     }
 }
 

@@ -24,9 +24,15 @@ public class Person {
     @Column(nullable = false)
     private int age;
 
+    @Column(nullable = false)
+    private String city;
+
     @Embedded
     private Contact contact;
 
     @Column(nullable = false)
-    private String city;
+    private String password;
+
+    @Column(nullable = false)
+    private String role;
 }
